@@ -79,59 +79,66 @@ def add_student():
     save_data(students)
     print("Student added successfully.")
     
-#Add/Update scores
 def add_score():
-    
+
     print("\n==================================")
     print("---------------ADD SCORE-----------")
     print("=====================================")
-    
-    roll = input("Enter Roll Number: ")
-    
-    #Checks if student exists
-    if roll not in students:
-        print("Student not found.")
-        return
-    
-    """.strip()and .title() it breaks down existing data like
-    subject name and match it up with existing datas"""
-    subject = input("Enter Subject: ").strip().title()
-    
-    if not subject:
+
+    # Validate roll
+    while True:
+        roll = input("Enter Roll Number: ").strip()
+
+        if roll in students:
+            break
+
+        print("Student not found. Try again.")
+
+    # Validate subject
+    while True:
+        subject = input("Enter Subject: ").strip().title()
+
+        if subject:
+            break
+
         print("Subject cannot be empty.")
-        return
-    
-    #Error handler
-    try:
-        test = float(input("Enter Test Score (30): "))
-        exam = float(input("Enter Exam Scores (70): "))
-    except ValueError:
-        print("Invalid input. Please enter numbers.")
-        return
-    
-    #it make sure user don't input negative numbers
-    if test < 0 or exam < 0:
-        print("Scores cannot be negative.")
-        return
-    
-    #It makes sure test and Exams don't exceeds certain numbers
-    if test > 30 or exam > 70:
-        print("Score exceeds allowed limit.")
-        return
-    
+
+    # ✅ TEST SCORE LOOP (independent)
+    while True:
+        try:
+            test = float(input("Enter Test Score (0 - 30): "))
+
+            if 0 <= test <= 30:
+                break
+
+            print("Test score must be between 0 and 30.")
+
+        except ValueError:
+            print("Invalid input. Enter numbers only.")
+
+    # ✅ EXAM SCORE LOOP (independent)
+    while True:
+        try:
+            exam = float(input("Enter Exam Score (0 - 70): "))
+
+            if 0 <= exam <= 70:
+                break
+
+            print("Exam score must be between 0 and 70.")
+
+        except ValueError:
+            print("Invalid input. Enter numbers only.")
+
     total = test + exam
-    
-    #print inputed data/scores
+
     students[roll]["subjects"][subject] = {
         "test": test,
         "exam": exam,
         "total": total
     }
-    
+
     save_data(students)
     print("Score Updated Successfully.")
-    
-#View all Students
 
 def view_student():
 
@@ -264,11 +271,11 @@ def menu():
             report_card()
         elif choice == "5":
             class_performance()
+        elif choice == "0133":
+            debug()
         elif choice == "6":
             save_data(students)
             print("Data saved. Goodbye.")
-        elif choice == "7":
-            debug()
             break
         else:
             print("Invalid option.")
