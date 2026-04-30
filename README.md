@@ -1,87 +1,89 @@
-# Grade Management System Overview
+# 🎓 Grade Management System Overview
 
 **GradeFlow** is a Python-based Grade Management System that helps manage student records, subjects, scores, and performance analytics.
 
-This project includes --Two versions--:
+This project includes **two versions**:
 
-GUI Version – Built with CustomTkinter (modern interface)
-CLI Version – Terminal-based (lightweight and simple)
+* 🖥️ **GUI Version** – Built with CustomTkinter (modern interface)
+* ⌨️ **CLI Version** – Terminal-based (lightweight and simple)
 
 Both versions use a shared **JSON database** for persistent storage.
 
 ---
 
-##  Features
+## ✨ Features
 
-###  Student Management
+### 👨‍🎓 Student Management
 
-Add new students (Name & Roll Number/Matric Numbers)
-Prevent duplicate entries
-View all students
+* Add new students (Name & Roll Number / Matric Number)
+* Prevent duplicate entries
+* View all students
 
-###  Score Management
+### 📝 Score Management
 
- Add/Edit scores per subject
- Supports:
+* Add/Edit scores per subject
+* Supports:
 
-   Test score (max 30)
-   Exam score (max 70)
-*Automatic total calculation
+  * Test score (max 30)
+  * Exam score (max 70)
+* Automatic total calculation
 
-###  Report System
+### 📊 Report System
 
-Generate student report cards
-Displays:
+* Generate student report cards
+* Displays:
 
-   Subject scores
-   Totals
-   Subject averages
-   Overall average
-   Grade (A–F)
+  * Subject scores
+  * Totals
+  * Subject averages
+  * Overall average
+  * Grade (A–F)
 
-### Analytics
+### 📈 Analytics
 
-Class performance per subject
-Average score per subject
-Number of students per subject
+* Class performance per subject
+* Average score per subject
+* Number of students per subject
 
-### Student Profile View
+### 🔍 Student Profile View
 
-View a single student's:
+* View a single student's:
 
-  Name
-  Subjects
-  Scores
-  Total & average
+  * Name
+  * Subjects
+  * Scores
+  * Total & average
 
 ---
 
-## GUI Version (CustomTkinter)
+## 🖥️ GUI Version (CustomTkinter)
 
 Modern interface with:
 
-Sidebar navigation
-Dynamic forms
-Real-time updates
-Styled report output
+* Sidebar navigation
+* Dynamic forms
+* Real-time updates
+* Styled report output
 
-### Run GUI:
+### ▶ Run GUI
 
 ```bash
 python grade_system_gui.py
 ```
 
-##  CLI Version
+---
+
+## ⌨️ CLI Version
 
 Simple terminal-based interaction.
 
-### Features:
+### Features
 
-Menu-driven interface
-Fast and lightweight
-Same core functionality as GUI
+* Menu-driven interface
+* Fast and lightweight
+* Same core functionality as GUI
 
-### Run CLI:
+### ▶ Run CLI
 
 ```bash
 python grade_system_cli.py
@@ -89,20 +91,20 @@ python grade_system_cli.py
 
 ---
 
-##  Project Structure
+## 📂 Project Structure
 
 ```bash
 GradeFlow/
 │
-├── grade_system_cli.py              # Cli Version
-├── grade_system_gui.py              # GUI version (CustomTkinter)
-├── students.json       # Database (auto-generated)
-├── README.md           # Project documentation
+├── grade_system_gui.py     # GUI version (CustomTkinter)
+├── grade_system_cli.py     # CLI version
+├── students.json           # Database (auto-generated)
+├── README.md               # Project documentation
 ```
 
 ---
 
-##  Data Storage
+## 💾 Data Storage
 
 All student data is stored in:
 
@@ -110,7 +112,7 @@ All student data is stored in:
 students.json
 ```
 
-### Format Example:
+### Example Format
 
 ```json
 {
@@ -129,13 +131,13 @@ students.json
 
 ---
 
-##  Installation
+## ⚙️ Installation
 
 ### 1. Clone repository
 
 ```bash
-git clone https://github.com/LeoEmmy01/Grade Management.git
-cd Grade Management System
+git clone https://github.com/LeoEmmy01/Grade-Management.git
+cd Grade-Management
 ```
 
 ### 2. Install dependencies
@@ -146,34 +148,34 @@ pip install customtkinter
 
 ---
 
-## Future Improvements
+## 🚀 Future Improvements
 
-Graphs & charts (performance visualization)
-Ranking system
-Export report card as PDF
-Web-based version (Flask/Django)
-User authentication (Admin/Teacher login)
+* 📊 Graphs & charts (performance visualization)
+* 🏆 Ranking system
+* 📄 Export report card as PDF
+* 🌐 Web-based version (Flask/Django)
+* 🔐 User authentication (Admin/Teacher login)
 
 ---
 
-##  Contribution
+## 🤝 Contribution
 
 Feel free to fork this project and improve it.
 
 ---
 
-##  License
+## 📜 License
 
 This project is open-source and available under the MIT License.
 
 ---
 
-##  Author
+## 👨‍💻 Author
 
 Developed by **Leo**
 
 ---
 
-##  Support
+## ⭐ Support
 
 If you like this project, consider giving it a ⭐ on GitHub!
