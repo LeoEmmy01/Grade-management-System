@@ -640,16 +640,53 @@ app.geometry("800x600")
 app.title("Grade System (Dynamic UI)")
 
 #Leo Icon
-from PIL import Image, ImageTk
 import os
+import sys
+import tkinter as tk
+from PIL import Image, ImageTk
 
-icon_path = os.path.join(os.path.dirname(__file__), "whatsapp.png")
+# ==================== ICON SETUP FUNCTION ====================
+def setup_icon(app):
+    """Setup icon for both window and taskbar."""
+    
+    # Get script directory
+    if getattr(sys, 'frozen', False):
+        script_dir = os.path.dirname(sys.executable)
+    else:
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+    
+    # Check for ICO file FIRST (best for Windows taskbar)
+    ico_path = os.path.join(script_dir, "tttt.ico")
+    png_path = os.path.join(script_dir, "leo.png")
+    
+    if os.path.exists(ico_path):
+        icon_path = ico_path
+        use_ico = True
+    elif os.path.exists(png_path):
+        icon_path = png_path
+        use_ico = False
+    else:
+        print("Warning: No icon file found!")
+        return
+    
+    try:
+        if use_ico:
+            # Use ICO format for Windows taskbar
+            app.iconbitmap(icon_path)
+            print(f"Loaded ICO icon: {icon_path}")
+        else:
+            # Convert PNG to PhotoImage for window icon
+            img = Image.open(icon_path)
+            icon = ImageTk.PhotoImage(img)
+            app.iconphoto(True, icon)
+            print(f"Loaded PNG icon: {icon_path}")
+    except Exception as e:
+        print(f"Error loading icon: {e}")
 
-icon = Image.open(icon_path)
-icon = ImageTk.PhotoImage(icon)
+# ==================== CALL THE FUNCTION ====================
+# Place this AFTER app = ctk.CTk() and BEFORE app.mainloop()
+setup_icon(app)
 
-app.iconphoto(True, icon)
-app.icon = icon
 # ---------------- TITLE HEADER ----------------
 #This displays a big bold title at the top of the app: “GRADE MANAGEMENT SYSTEM”
 title = ctk.CTkLabel(
