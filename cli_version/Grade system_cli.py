@@ -1,13 +1,29 @@
+"""This is a Grade Management System (Console Version) that:
+
+Stores student data in a JSON file
+Adds students and scores
+Generates report cards
+Calculates class performance
+Uses a menu system for navigation"""
+
+#used to save and load structured data
 import json
+
+#used to check if files exist
 import os
 
+#Stores the file name where student data is saved
 FILE_NAME = "students.json"
 
-#Data Stroage Functions
+#---------------Data Stroage Functions---------------------
 #This is where student info(score,name,subject, exam) are stored
-
-
 #The programme locate the json file and load through os path 
+"""load_data()
+Checks if the file exists
+Loads JSON data into Python dictionary
+If file is missing or broken, returns {} (empty data)
+
+Purpose: Safely load saved student data"""
 def load_data():
     if os.path.exists(FILE_NAME):
         try:
@@ -23,15 +39,22 @@ def load_data():
     return {}
     
 #student data/info written or dump in json file
+"""Saves Python dictionary into JSON file
+Uses indent=4 for readable formatting
+
+Purpose: Save all student data permanently"""
 def save_data(data):
     with open(FILE_NAME, "w") as file:
         json.dump(data, file, indent=4)
  
        
+"""Loads existing student data when program starts
+If nothing exists, starts with empty dictionary"""
 students = load_data() or {}
 
 
 #Grade Functions
+#Converts average score into grade:
 def calculate_grade(avg):
     if avg >= 70:
         return "A"
@@ -47,6 +70,12 @@ def calculate_grade(avg):
         return "F"
     
 #Add Student functions
+"""Takes roll number and name from user
+Checks:
+Roll number is not empty,
+Student does not already exist,
+Name is not empty
+Stores student like this:"""
 def add_student():
     print("\n" + "="*10)
     print("---------------ADD STUDENT-----------")
@@ -79,6 +108,14 @@ def add_student():
     save_data(students)
     print("Student added successfully.")
     
+#-----------Add Score --------------
+"""Step-by-step:
+Ask for roll number (must exist)
+Ask for subject (cannot be empty)
+Get test score (0-30)
+Get exam score (0-70)
+Validate all inputs
+Calculate total:"""
 def add_score():
 
     print("\n==================================")
@@ -103,7 +140,7 @@ def add_score():
 
         print("Subject cannot be empty.")
 
-    # ✅ TEST SCORE LOOP (independent)
+    #TEST SCORE LOOP (independent)
     while True:
         try:
             test = float(input("Enter Test Score (0 - 30): "))
@@ -116,7 +153,7 @@ def add_score():
         except ValueError:
             print("Invalid input. Enter numbers only.")
 
-    # ✅ EXAM SCORE LOOP (independent)
+    #EXAM SCORE LOOP (independent)
     while True:
         try:
             exam = float(input("Enter Exam Score (0 - 70): "))
@@ -140,6 +177,13 @@ def add_score():
     save_data(students)
     print("Score Updated Successfully.")
 
+#View Student Functions
+"""view_student()
+Shows list of all students
+Displays:
+Roll number,
+Name
+Purpose: Quick student overview"""
 def view_student():
 
     if not students:
@@ -154,6 +198,14 @@ def view_student():
         print(f"{roll} | {info['name']}")
         
 
+#-------Report Card Functions----------
+"""Takes roll number
+Checks if student exists
+Displays:
+Name
+Roll number
+Subjects with scores
+"""
 def report_card():
     roll = input("Enter Roll Number: ")
     
@@ -177,6 +229,10 @@ def report_card():
     print(f"{'SUBJECT':<12}{'TEST':<8}{'EXAM':<8}{'TOTAL':<8}")
     print("-" * 40)
     
+    """Calculates:
+    Subject totals
+    Overall average
+    Grade"""
     grand_total = 0
     count = 0
     
@@ -207,7 +263,16 @@ def report_card():
     print(f"GRADE: {grade}")
     print("==============================")
     
-#It calculate the overall subject performance from all student/numbers of student offering the subject
+# -------Class Performance ---------
+"""Loops through all students
+Collects:
+Total scores per subject
+Number of students per subject
+Shows:
+Average score per subject
+Number of students per subject
+
+👉 Purpose: Compare class performance across subjects"""
 def class_performance():
     subject_totals = {}
     subject_counts = {}
@@ -246,6 +311,8 @@ def debug():
     print(json.dumps(students, indent=4))
         
 #Menu
+"""Runs infinite loop
+Shows options"""
 def menu():
     while True:
         
@@ -279,5 +346,24 @@ def menu():
             break
         else:
             print("Invalid option.")
-            
+
+        #Control
+        """Controls:
+        Calls correct function based on user choice
+        Saves data before exit
+
+        Purpose: Main navigation system"""
+        
+
+#Starts the entire program
 menu()
+
+
+#summmary
+"""This project:
+Stores students in JSON file,
+Lets you add students,
+Lets you add scores,
+Generates report cards,
+Shows class performance,
+Uses a menu system to control everything."""
