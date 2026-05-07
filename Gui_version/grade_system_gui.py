@@ -28,6 +28,8 @@ import json
 # Used to check if file exists
 import os
 
+import ctypes
+
 # ---------------- FILE CONFIG ----------------
 #FILE_NAME
 """This is a variable name.
@@ -627,6 +629,11 @@ ctk.set_default_color_theme("blue") sets the main color theme to blue."""
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("blue")
 
+# Windows Taskbar App ID
+my_appid = 'mycompany.myapp.grade_system.1.0'
+ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(my_appid)
+
+
 #app = ctk.CTk() creates the main application window
 app = ctk.CTk()
 
@@ -640,48 +647,17 @@ app.geometry("800x600")
 app.title("Grade System (Dynamic UI)")
 
 #Leo Icon
-import os
-import sys
-import tkinter as tk
-from PIL import Image, ImageTk
-
-# ==================== ICON SETUP FUNCTION ====================
 def setup_icon(app):
-    """Setup icon for both window and taskbar."""
-    
-    # Get script directory
-    if getattr(sys, 'frozen', False):
-        script_dir = os.path.dirname(sys.executable)
-    else:
-        script_dir = os.path.dirname(os.path.abspath(__file__))
-    
-    # Check for ICO file FIRST (best for Windows taskbar)
-    ico_path = os.path.join(script_dir, "tttt.ico")
-    png_path = os.path.join(script_dir, "leo.png")
-    
+    import os
+    import sys
+
+    # Logic to find the file whether running as .py or .exe
+    base_dir = sys._MEIPASS if getattr(sys, 'frozen', False) else os.path.dirname(os.path.abspath(__file__))
+    ico_path = os.path.join(base_dir, "leo.ico")
+
+    # Set the icon only if the file exists
     if os.path.exists(ico_path):
-        icon_path = ico_path
-        use_ico = True
-    elif os.path.exists(png_path):
-        icon_path = png_path
-        use_ico = False
-    else:
-        print("Warning: No icon file found!")
-        return
-    
-    try:
-        if use_ico:
-            # Use ICO format for Windows taskbar
-            app.iconbitmap(icon_path)
-            print(f"Loaded ICO icon: {icon_path}")
-        else:
-            # Convert PNG to PhotoImage for window icon
-            img = Image.open(icon_path)
-            icon = ImageTk.PhotoImage(img)
-            app.iconphoto(True, icon)
-            print(f"Loaded PNG icon: {icon_path}")
-    except Exception as e:
-        print(f"Error loading icon: {e}")
+        app.after(200, lambda: app.iconbitmap(ico_path))
 
 # ==================== CALL THE FUNCTION ====================
 # Place this AFTER app = ctk.CTk() and BEFORE app.mainloop()
